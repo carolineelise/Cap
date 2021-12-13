@@ -1,0 +1,40 @@
+
+    <app-menu></app-menu>
+    <h2>Requests</h2>
+    <div>
+    <label>Search Requests: </label>
+    <input [(ngModel)]="searchCriteria" type="text"> 
+    <h4> | </h4>
+    <button type="button" class="btn btn-outline-primary btn-sm"><a id="btn" routerLink="/request/create">Create New Request</a></button>
+    </div>  
+    <br>
+    <table class="table table-sm table-hover">
+        <thead>
+            <th>Id</th>
+            <th>Description</th>
+            <th>Justification</th>
+            <th>Rejection Reason</th>
+            <th>Delivery Mode</th>
+            <th>Status</th> 
+            <th>Total</th>
+            <th>User</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let request of requests | reqSearch: searchCriteria">
+                <td>{{request.id}}</td>
+                <td>{{request.description}}</td>
+                <td>{{request.justification}}</td>
+                <td>{{request .rejectionReason | null}}</td>
+                <td>{{request.deliveryMode}}</td>
+                <td [ngClass]="request.statusStyle">{{request.status}}</td>
+                <td>{{request.total | currency}}</td>
+                <td>{{request.user.username}}</td>
+                <td><a routerLink="/requestline/edit/{{request.id}}">Edit</a> |
+                    <a routerLink="/request/line/{{request.id}}">Lines</a></td>
+                
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    

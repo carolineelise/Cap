@@ -1,0 +1,20 @@
+<app-menu></app-menu>
+<div *ngIf="user">
+
+    <br>
+    <h3>{{user.firstname}} {{user.lastname}}</h3><h4>|</h4><button id="btn" type="button" class="btn btn-link"><a routerLink="/user/list">Back to User List</a></button>
+    <br>
+    <label>Id: {{user.id}}</label>
+    <label>Username: {{user.username}}</label>
+    <label>Name: {{user.firstname}} {{user.lastname}}</label>
+    <label>Phone: {{user.phone}}</label>
+    <label>Email: {{user.email}}</label>            
+    <label>Reviewer: {{user.isReviewer | review}}</label>
+    <label>Admin: {{user.isAdmin | admin}}</label>
+    
+    <br>
+    <button class="btn btn-warning"><a routerLink="/user/edit/{{this.user.id}}">Edit User</a></button>
+    <button id="delete" class="btn btn-danger" (click)="delete()">Delete</button>
+    
+</div>
+    

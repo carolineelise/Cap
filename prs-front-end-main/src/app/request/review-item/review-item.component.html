@@ -1,0 +1,58 @@
+<app-menu></app-menu>
+<div *ngIf="request">
+<br>
+<h3>Review Request</h3><h4>|</h4>
+<button id="back" type="button" class="btn btn-link"><a id="btn" routerLink="/request/review-lines">Back to list</a></button>
+<br>
+<table class="table table-sm">
+    <thead>
+        <th>Id</th>
+        <th>Description</th>
+        <th>Rejection Reason</th>
+        <th>Status</th> 
+        <th>Total</th>
+        <th>User</th>
+    </thead>
+    <tbody>
+        <tr>
+                <td>{{request.id}}</td>
+                <td>{{request.description}}</td>
+                <td>{{request.rejectionReason | null}}</td>
+                <td>{{request.status}}</td>
+                <td>{{request.total | currency}}</td>
+                <td>{{request.user.username}}</td>
+            </tr>
+    </tbody>
+</table>
+
+<br>
+<br>
+<h5>All requests for {{request.description}}</h5>
+<table class="table table-sm table-hover">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let rl of request.requestLines">
+        <td>{{rl.id}}</td>
+        <td>{{rl.product !== undefined ? rl.product.name : "missing"}}</td>
+        <td>{{rl.quantity}}</td>
+        <td>{{(rl.product !== undefined ? rl.product.price : -1) | currency}}</td>
+        <td>{{rl.quantity * (rl.product !== undefined ? rl.product.price : -1) | currency}}</td>
+    </tbody>
+</table>
+
+<button id="approve" (click)="approve(request)" class="btn btn-outline-success btn-sm">Approve</button>
+<button id="reject" (click)="rejectionReason()" class="btn btn-outline-danger btn-sm">Reject</button>
+<div *ngIf="displayRejection">
+        <br>
+        <label>Rejection Reason: </label><input [(ngModel)]="request.rejectionReason" type="text" size=30> 
+        <button id="confirm" (click)="reject(request)" class="btn btn-danger btn-sm">Confirm Reject</button>
+    </div>
+
+</div>

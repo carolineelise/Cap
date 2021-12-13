@@ -1,0 +1,40 @@
+
+    <app-menu></app-menu>
+    <h2>Users</h2>
+    <div>
+    <label>Search Users: </label>
+    <input [(ngModel)]="searchCriteria" type="text"> 
+    <h4> | </h4>
+    <button type="button" class="btn btn-outline-primary btn-sm"><a id="btn" routerLink="/user/create">Create New User</a></button>
+    </div>  
+    <br>
+    <table class="table table-sm table-hover">
+        <thead>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Reviewer</th>
+            <th>Admin</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users | search: searchCriteria">
+                <td>{{user.id}}</td>
+                <td>{{user.username}}</td>
+                <td>{{user.firstname}} {{user.lastname}}</td>
+                <td>{{user.phone}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.isReviewer | review}}</td>
+                <td>{{user.isAdmin | admin}}</td>
+                <td><a routerLink="/user/detail/{{user.id}}">Detail</a> | 
+                    <a routerLink="/user/edit/{{user.id}}">Edit</a> 
+                    <!-- | 
+                    <button id="delete" class="btn btn-danger btn-sm" (click)="delete()">Delete</button></td> -->
+                
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    
